@@ -1,7 +1,7 @@
 export class API_Floristeria {
   id: string;
   name: string;
-  bonimialName: string;
+  binomialName: string;
   price: number;
   imgUrl: string;
   wateringsPerWeek: number;
@@ -20,7 +20,7 @@ export class API_Floristeria {
     this.id = id;
     this.name = name;
     this.price = price;
-    this.bonimialName = bonimialName;
+    this.binomialName = bonimialName;
     this.imgUrl = imgUrl;
     this.wateringsPerWeek = wateringsPerWeek;
     this.fertilizerType = fertilizerType;

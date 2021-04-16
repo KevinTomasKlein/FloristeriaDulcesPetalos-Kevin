@@ -9,12 +9,20 @@ export function FormFloristeria() {
   const API_FLORISTERIA_URL: string =
     "https://dulces-petalos.herokuapp.com/api/product";
   const [productDetails, setProductDetails] = useState<any[]>([]);
+
+  const [searchFlower, setSearchFlower] = useState("");
+  const handleChange = (event: any) => {
+    setSearchFlower(event.target.value);
+  };
+
+  const [searchResults, setSearchResults] = useState("");
+
   function addData() {
     productDetails.map((product) => {
       const flor = new API_Floristeria(
         product.id,
         product.name,
-        product.bonimialName,
+        product.binomialName,
         product.price,
         product.imgUrl,
         product.wateringsPerWeek,
@@ -28,24 +36,40 @@ export function FormFloristeria() {
 
   useEffect(() => {
     getDetailsWithAxios();
-    addData();
+    const results = data.filter((flowerData) =>
+      flowerData.name
+        .toLocaleLowerCase()
+        .includes(searchFlower.toLocaleLowerCase())
+    );
+    setSearchResults(results);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchFlower]);
 
   const getDetailsWithAxios = async () => {
     const responseAxios = await axios.get(API_FLORISTERIA_URL);
     setProductDetails(responseAxios.data);
   };
-
+  addData();
   return (
     <div>
-      {/* {productDetails.map((itemFlower) => (
-        <div className="card col-md-3">
-          {itemFlower.id}
-          <img alt="flower-images" src={itemFlower.imgUrl}></img>
+      <div className="navbar navbar-light bg-light">
+        <div className="container-fluid">
+          <form className="d-flex offset-lg-10 offset-md-8">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search Flower"
+              aria-label="Search Flower"
+              value={searchFlower}
+              onChange={handleChange}
+            ></input>
+            <button className="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
         </div>
-      ))} */}
-      <p>{HomeView(productDetails)}</p>
+      </div>
+      <p>{HomeView(data)}</p>
     </div>
   );
 }
