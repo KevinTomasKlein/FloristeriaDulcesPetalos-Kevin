@@ -1,13 +1,9 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { FormFloristeria } from "./FormFloristeria";
 
 function App() {
   return (
-    <div className="App">
-      <header></header>
-
+    <div className="container-fluid">
       <FormFloristeria />
     </div>
   );

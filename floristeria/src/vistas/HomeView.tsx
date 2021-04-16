@@ -1,6 +1,6 @@
 export function HomeView() {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div>Cosas</div>
     </div>
   );
