@@ -39,3 +39,4 @@ export function HomeView(flores: API_Floristeria[]) {
     </div>
   );
 }
+// deprecated
