@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-import { API_Floristeria } from "./Clases/API_Floristeria";
 
 export function FormFloristeria() {
   const API_FLORISTERIA_URL: string =
