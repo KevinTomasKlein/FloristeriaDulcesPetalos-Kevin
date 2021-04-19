@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import { Flores } from "./clases/Flores";
-import { updateTypeAssertion } from "typescript";
+import { Link } from "react-router-dom";
 
 export function FormFloristeria() {
   const API_FLORISTERIA_URL: string =
@@ -12,17 +12,27 @@ export function FormFloristeria() {
 
   const [searchResults, setSearchResults] = useState("");
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const searchFlower: any[] = [];
 
   const [hasId, setId] = useState("");
 
-  let flower: Flores;
+  let flowers: Flores;
 
   const getDetailsWithAxios = async () => {
-    const responseAxios = await axios.get(API_FLORISTERIA_URL);
-    setProductDetails(responseAxios.data);
+    //  = await axios.get(API_FLORISTERIA_URL).catch(error => error)
+
+    // setProductDetails(responseAxios.data);
+
+    await axios
+      .get(API_FLORISTERIA_URL)
+      .then((response) => {
+        setProductDetails(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
   };
 
   useEffect(() => {
@@ -41,18 +51,18 @@ export function FormFloristeria() {
   function DetailsView() {
     productDetails.map((searchedItemFlower) => {
       if (hasId === searchedItemFlower.id) {
-        flower = searchedItemFlower;
+        flowers = searchedItemFlower;
       }
     });
     return (
       <div>
         <div className="row">
           <div
-            className="navbar navbar-light bg-dark 
-           justify-end"
+            className="navbar navbar-light 
+           offset-10"
           >
             <div className="container-fluid">
-              <div className="d-flex ">
+              <div className="d-flex btn btn-primary">
                 <input
                   className="form-control me-2"
                   type="button"
@@ -71,26 +81,26 @@ export function FormFloristeria() {
               <img
                 alt="flower-images"
                 className="rounded img-fluid"
-                src={flower.imgUrl}
+                src={flowers.imgUrl}
               ></img>
             </div>
           </div>
 
           <div className="card col-4">
             <div className="card-body">
-              <h5 className="card-title">{flower.name}</h5>
+              <h5 className="card-title">{flowers.name}</h5>
               <p className="card-text">
-                {"Binomial name: " + flower.binomialName}
+                {"Binomial name: " + flowers.binomialName}
               </p>
-              <p className="card-text">{"Precio: " + flower.price + " €"}</p>
+              <p className="card-text">{"Precio: " + flowers.price + " €"}</p>
               <p className="card-text">
-                {"Waterings per week: " + flower.wateringsPerWeek}
-              </p>
-              <p className="card-text">
-                {"Fertilizer type: " + flower.fertilizerType}
+                {"Waterings per week: " + flowers.wateringsPerWeek}
               </p>
               <p className="card-text">
-                {"Heigth: " + flower.heightInCm + "cm"}
+                {"Fertilizer type: " + flowers.fertilizerType}
+              </p>
+              <p className="card-text">
+                {"Heigth: " + flowers.heightInCm + "cm"}
               </p>
             </div>
           </div>
@@ -143,6 +153,7 @@ export function FormFloristeria() {
                   <img
                     alt="flower-images"
                     className="card-image"
+                    style={{ width: 200, height: 200 }}
                     src={itemFlower.imgUrl}
                   ></img>
                   <div className="card-body">
@@ -175,7 +186,7 @@ export function FormFloristeria() {
   if (error) {
     return (
       <div className="alert alert-danger" role="alert">
-        Error en la búsqueda
+        Error en la búsqueda {error}
       </div>
     );
   } else if (hasId !== "") {
