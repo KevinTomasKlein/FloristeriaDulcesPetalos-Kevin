@@ -42,8 +42,6 @@ export function FormFloristeria() {
     productDetails.map((searchedItemFlower) => {
       if (hasId === searchedItemFlower.id) {
         flower = searchedItemFlower;
-      } else {
-        setError(true);
       }
     });
     return (
@@ -174,7 +172,7 @@ export function FormFloristeria() {
     );
   }
 
-  if (error === true) {
+  if (error) {
     return (
       <div className="alert alert-danger" role="alert">
         Error en la búsqueda
