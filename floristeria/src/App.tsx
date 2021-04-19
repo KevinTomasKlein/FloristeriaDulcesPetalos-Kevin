@@ -12,18 +12,12 @@ function App() {
         >
           <span className="fs-4">Floristería Dulces Pétalos</span>
         </a>
-        <ul className="nav nav-pills">
+        <ul className="nav nav-pills offset-1">
           <li className="nav-item">
-            <a className="nav-link active">Texto</a>
+            <a className="nav-link active">Home</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link ">Texto</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link ">Texto</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link ">Texto</a>
+            <a className="nav-link ">Details</a>
           </li>
         </ul>
       </header>
